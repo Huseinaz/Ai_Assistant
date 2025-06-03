@@ -1,8 +1,9 @@
-import 'package:ai_assistant/screen/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:ai_assistant/helper/global.dart';
 import 'package:ai_assistant/model/onboard.dart';
+import 'package:ai_assistant/screen/home_screen.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -96,9 +97,7 @@ class OnboardingScreen extends StatelessWidget {
                 onPressed: () {
                   if (isLast) {
                     // If last page, navigate to HomeScreen
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (_) => HomeScreen()),
-                    );
+                    Get.off(() => HomeScreen());
                   } else {
                     // Go to next page
                     c.nextPage(
