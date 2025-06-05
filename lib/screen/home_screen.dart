@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       // AppBar
       appBar: AppBar(
-        elevation: 0,
+        elevation: 1,
         centerTitle: true,
         title: Text(
           appName,
