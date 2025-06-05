@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ai_assistant/helper/global.dart';
 import 'package:ai_assistant/model/message.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 class MessageCard extends StatelessWidget {
   final Message message;
@@ -41,7 +42,18 @@ class MessageCard extends StatelessWidget {
                   bottomRight: r,
                 ),
               ),
-              child: Text(message.msg),
+              child:
+                  message.msg.isEmpty
+                      ? AnimatedTextKit(
+                        animatedTexts: [
+                          TypewriterAnimatedText(
+                            'Please wait...',
+                            speed: const Duration(milliseconds: 100),
+                          ),
+                        ],
+                        repeatForever: true,
+                      )
+                      : Text(message.msg),
             ),
           ],
         )
