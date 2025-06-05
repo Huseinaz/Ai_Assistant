@@ -20,62 +20,66 @@ class HomeCard extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),
       margin: EdgeInsets.only(bottom: mq.height * 0.02),
-      child:
-          homeType.leftAlign
-              ? Row(
-                children: [
-                  // Lottie
-                  Container(
-                    width: mq.width * 0.35,
-                    padding: homeType.padding,
-                    child: Lottie.asset(
-                      'assets/lottie/${homeType.lottie}.json',
+      child: InkWell(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+        onTap: homeType.onTap,
+        child:
+            homeType.leftAlign
+                ? Row(
+                  children: [
+                    // Lottie
+                    Container(
+                      width: mq.width * 0.35,
+                      padding: homeType.padding,
+                      child: Lottie.asset(
+                        'assets/lottie/${homeType.lottie}.json',
+                      ),
                     ),
-                  ),
 
-                  Spacer(),
+                    Spacer(),
 
-                  // Text
-                  Text(
-                    homeType.title,
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: 1,
+                    // Text
+                    Text(
+                      homeType.title,
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 1,
+                      ),
                     ),
-                  ),
 
-                  Spacer(flex: 2),
-                ],
-              )
-              : Row(
-                children: [
-                  Spacer(flex: 2),
+                    Spacer(flex: 2),
+                  ],
+                )
+                : Row(
+                  children: [
+                    Spacer(flex: 2),
 
-                  // Text
-                  Text(
-                    homeType.title,
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: 1,
+                    // Text
+                    Text(
+                      homeType.title,
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 1,
+                      ),
                     ),
-                  ),
 
-                  Spacer(),
+                    Spacer(),
 
-                  // Lottie
-                  Container(
-                    width: mq.width * 0.35,
-                    padding: homeType.padding,
-                    child: Lottie.asset(
-                      'assets/lottie/${homeType.lottie}.json',
+                    // Lottie
+                    Container(
+                      width: mq.width * 0.35,
+                      padding: homeType.padding,
+                      child: Lottie.asset(
+                        'assets/lottie/${homeType.lottie}.json',
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
+      ),
     ).animate().fade(duration: 1.seconds, curve: Curves.easeIn);
   }
 }
