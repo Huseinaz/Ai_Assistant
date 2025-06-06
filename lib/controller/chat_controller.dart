@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ai_assistant/apis/apis.dart';
 import 'package:ai_assistant/model/message.dart';
+import 'package:ai_assistant/helper/my_dialog.dart';
 
 class ChatController extends GetxController {
   final textC = TextEditingController();
@@ -29,6 +30,9 @@ class ChatController extends GetxController {
 
       // Clear text field
       textC.text = '';
+    }
+    else {
+      MyDialog.info('Ask Something!');
     }
   }
 
