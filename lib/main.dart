@@ -28,6 +28,21 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: appName,
       debugShowCheckedModeBanner: false,
+
+      theme: ThemeData(
+        appBarTheme: AppBarTheme(
+          elevation: 1,
+          centerTitle: true,
+          backgroundColor: Colors.white,
+          titleTextStyle: TextStyle(
+            fontSize: 20,
+            color: Colors.blue,
+            fontWeight: FontWeight.w500,
+          ),
+          iconTheme: IconThemeData(color: Colors.blue),
+        ),
+      ),
+
       home: SplashScreen(),
     );
   }
