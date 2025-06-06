@@ -1,3 +1,4 @@
+import 'package:ai_assistant/widget/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
@@ -93,8 +94,8 @@ class OnboardingScreen extends StatelessWidget {
               Spacer(),
 
               // Button
-              ElevatedButton(
-                onPressed: () {
+              CustomButton(
+                onTap: () {
                   if (isLast) {
                     // If last page, navigate to HomeScreen
                     Get.off(() => HomeScreen());
@@ -106,20 +107,7 @@ class OnboardingScreen extends StatelessWidget {
                     );
                   }
                 },
-                style: ElevatedButton.styleFrom(
-                  shape: StadiumBorder(),
-                  elevation: 0,
-                  backgroundColor: Colors.blue,
-                  minimumSize: Size(mq.width * 0.4, 50),
-                ),
-                child: Text(
-                  isLast ? 'Get Started' : 'Next',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                text: isLast ? 'Get Started' : 'Next',
               ),
 
               Spacer(flex: 2),
