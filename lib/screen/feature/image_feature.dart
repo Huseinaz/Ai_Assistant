@@ -21,6 +21,27 @@ class _ImageFeatureState extends State<ImageFeature> {
     return Scaffold(
       appBar: AppBar(title: const Text('AI Image Creator')),
 
+      floatingActionButton: Obx(
+        () =>
+            _c.status.value == Status.complete
+                ? Padding(
+                  padding: EdgeInsets.only(right: 6, bottom: 6),
+                  child: FloatingActionButton(
+                    onPressed: () {},
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                    ),
+                    backgroundColor: Colors.blue,
+                    child: const Icon(
+                      Icons.save_alt_rounded,
+                      color: Colors.white,
+                      size: 26,
+                    ),
+                  ),
+                )
+                : SizedBox(),
+      ),
+
       body: ListView(
         physics: const BouncingScrollPhysics(),
         padding: EdgeInsets.only(
