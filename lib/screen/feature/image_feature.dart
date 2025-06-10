@@ -33,7 +33,25 @@ class _ImageFeatureState extends State<ImageFeature> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('AI Image Creator')),
+      appBar: AppBar(
+        title: const Text('AI Image Creator'),
+
+        // Share Button
+        actions: [
+          Obx(
+            () =>
+                _c.status.value == Status.complete
+                    ? IconButton(
+                      padding: EdgeInsets.only(right: 6),
+                      onPressed: () {
+                        _c.shareImage();
+                      },
+                      icon: const Icon(Icons.share),
+                    )
+                    : SizedBox(),
+          ),
+        ],
+      ),
 
       floatingActionButton: Obx(
         () =>

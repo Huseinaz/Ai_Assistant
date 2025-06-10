@@ -1,3 +1,5 @@
+import 'dart:developer';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:convert'; // For base64Decode
@@ -5,7 +7,9 @@ import 'dart:typed_data'; // For Uint8List
 import 'package:ai_assistant/apis/apis.dart';
 import 'package:ai_assistant/helper/global.dart';
 import 'package:ai_assistant/helper/my_dialog.dart';
-import 'package:gal/gal.dart'; // Import the gal package
+import 'package:gal/gal.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart'; // Import the gal package
 
 enum Status { none, loading, complete }
 
@@ -70,5 +74,36 @@ class ImageController extends GetxController {
       }
     }
     MyDialog.info('Provide some beautiful image description!');
+  }
+
+  Future<void> shareImage() async {
+    if (imageData != null) {
+      MyDialog.showLoadingDialog();
+      try {
+        // Get the temporary directory
+        final directory = await getTemporaryDirectory();
+        final filePath =
+            '${directory.path}/ai_image${DateTime.now().microsecondsSinceEpoch}.png';
+        final file = File(filePath);
+
+        // Write the image data to the temporary file
+        await file.writeAsBytes(imageData!);
+
+        // Share the image file
+        await Share.shareXFiles([
+          XFile(filePath),
+        ], text: 'Check out this Amazing image created by $appName App!');
+
+        // Optional: Delete the temporary file after sharing
+        await file.delete();
+
+        Get.back(); // Dismiss loading dialog
+        // No success dialog needed for sharing, as the share sheet itself indicates success/failure
+      } catch (e) {
+        Get.back(); // Dismiss loading dialog
+        MyDialog.error('Failed to share image: $e');
+        log('$e');
+      }
+    }
   }
 }
