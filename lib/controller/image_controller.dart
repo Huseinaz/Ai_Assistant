@@ -1,9 +1,11 @@
-import 'package:ai_assistant/helper/my_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'dart:convert'; // For base64Decode
 import 'dart:typed_data'; // For Uint8List
-import 'package:get/get.dart';
 import 'package:ai_assistant/apis/apis.dart';
+import 'package:ai_assistant/helper/global.dart';
+import 'package:ai_assistant/helper/my_dialog.dart';
+import 'package:gal/gal.dart'; // Import the gal package
 
 enum Status { none, loading, complete }
 
@@ -16,6 +18,7 @@ class ImageController extends GetxController {
 
   Future<void> createAIImage() async {
     if (textC.text.trim().isNotEmpty) {
+      FocusManager.instance.primaryFocus?.unfocus();
       status.value = Status.loading;
       imageData = null;
 
@@ -40,8 +43,30 @@ class ImageController extends GetxController {
       } catch (e) {
         Get.snackbar('Error', 'An error occurred: $e');
         status.value = Status.none;
-      } finally {
-        textC.text = '';
+      }
+    } else {
+      MyDialog.info('Provide some beautiful image description!');
+    }
+  }
+
+  // New method to download the image
+  Future<void> downloadImage() async {
+    if (imageData != null) {
+      FocusManager.instance.primaryFocus?.unfocus();
+      await Future.delayed(Duration(milliseconds: 50)); // Small delay
+      MyDialog.showLoadingDialog();
+      try {
+        // Save the image to the gallery
+        await Gal.putImageBytes(
+          imageData!,
+          album: appName,
+          name: 'ai_image_${DateTime.now().microsecondsSinceEpoch}',
+        );
+        Get.back(); // Dismiss loading dialog
+        MyDialog.success('Image downloaded to gallery!');
+      } catch (e) {
+        Get.back(); // Dismiss loading dialog
+        MyDialog.error('Failed to download image: $e');
       }
     }
     MyDialog.info('Provide some beautiful image description!');
