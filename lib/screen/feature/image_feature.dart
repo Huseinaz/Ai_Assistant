@@ -15,6 +15,20 @@ class ImageFeature extends StatefulWidget {
 
 class _ImageFeatureState extends State<ImageFeature> {
   final _c = Get.put(ImageController());
+  // Declare a FocusNode
+  late FocusNode _textFocusNode; // Declare it here
+
+  @override
+  void initState() {
+    super.initState();
+    _textFocusNode = FocusNode(); // Initialize in initState
+  }
+
+  @override
+  void dispose() {
+    _textFocusNode.dispose(); // Dispose in dispose method
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +41,10 @@ class _ImageFeatureState extends State<ImageFeature> {
                 ? Padding(
                   padding: EdgeInsets.only(right: 6, bottom: 6),
                   child: FloatingActionButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      _textFocusNode.unfocus();
+                      _c.downloadImage();
+                    },
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(15)),
                     ),
@@ -54,13 +71,15 @@ class _ImageFeatureState extends State<ImageFeature> {
           // Text field
           TextFormField(
             controller: _c.textC,
+            focusNode: _textFocusNode, // Assign the focus node here
             textAlign: TextAlign.center,
             minLines: 2,
             maxLines: null,
-            onTapOutside: (e) => FocusScope.of(context).unfocus(),
+            onTapOutside:
+                (e) => _textFocusNode.unfocus(), // Use the focus node here
             decoration: InputDecoration(
               hintText:
-                  'Imagine something wonderful & innovative\nType here and I will create for you',
+                  'Imagine something wonderful & innovative\nType here and I will create for you 😃',
               hintStyle: TextStyle(fontSize: 13.5),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -92,7 +111,6 @@ class _ImageFeatureState extends State<ImageFeature> {
       case Status.loading:
         return CustomLoading();
       case Status.complete:
-        // Display the image from Uint8List if available
         if (_c.imageData != null) {
           return ClipRRect(
             borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -105,7 +123,6 @@ class _ImageFeatureState extends State<ImageFeature> {
             ),
           );
         } else {
-          // Fallback if imageData is null even after status.complete
           return const Center(child: Text('No image generated.'));
         }
     }
