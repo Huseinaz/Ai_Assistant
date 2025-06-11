@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:ai_assistant/helper/global.dart';
 import 'package:ai_assistant/widget/custom_button.dart';
+import 'package:ai_assistant/widget/custom_loading.dart';
 import 'package:ai_assistant/widget/language_sheet.dart';
+import 'package:ai_assistant/controller/image_controller.dart';
 import 'package:ai_assistant/controller/translate_controller.dart';
 
 class TranslatorFeature extends StatefulWidget {
@@ -50,9 +52,18 @@ class _TranslatorFeatureState extends State<TranslatorFeature> {
                 ),
               ),
 
+              // Swipe Language Button
               IconButton(
-                onPressed: () {},
-                icon: Icon(CupertinoIcons.repeat, color: Colors.grey),
+                onPressed: _c.swapLanguages,
+                icon: Obx(
+                  () => Icon(
+                    CupertinoIcons.repeat,
+                    color:
+                        _c.to.isNotEmpty && _c.from.isNotEmpty
+                            ? Colors.blue
+                            : Colors.grey,
+                  ),
+                ),
               ),
 
               // To Language
@@ -95,26 +106,31 @@ class _TranslatorFeatureState extends State<TranslatorFeature> {
           ),
 
           // Result field
-          if (_c.resultC.text.isNotEmpty)
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: mq.width * 0.04),
-              child: TextFormField(
-                controller: _c.resultC,
-                maxLines: null,
-                onTapOutside: (e) => FocusScope.of(context).unfocus(),
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                ),
-              ),
-            ),
+          Obx(() => _translateResult()),
 
           SizedBox(height: mq.height * 0.04),
 
-          CustomButton(onTap: () {}, text: 'Translate'),
+          CustomButton(onTap: _c.translate, text: 'Translate'),
         ],
       ),
     );
   }
+
+  Widget _translateResult() => switch (_c.status.value) {
+    Status.none => SizedBox(),
+    Status.complete => Padding(
+      padding: EdgeInsets.symmetric(horizontal: mq.width * 0.04),
+      child: TextFormField(
+        controller: _c.resultC,
+        maxLines: null,
+        onTapOutside: (e) => FocusScope.of(context).unfocus(),
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+        ),
+      ),
+    ),
+    Status.loading => Align(child: CustomLoading()),
+  };
 }
