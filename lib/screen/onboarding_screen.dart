@@ -1,10 +1,11 @@
-import 'package:ai_assistant/widget/custom_button.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:flutter/material.dart';
+import 'package:ai_assistant/main.dart';
 import 'package:ai_assistant/helper/global.dart';
 import 'package:ai_assistant/model/onboard.dart';
 import 'package:ai_assistant/screen/home_screen.dart';
+import 'package:ai_assistant/widget/custom_button.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -66,7 +67,7 @@ class OnboardingScreen extends StatelessWidget {
                   list[ind].subtitle,
                   style: TextStyle(
                     fontSize: 13.5,
-                    color: Colors.black54,
+                    color: Theme.of(context).lightTextColor,
                     letterSpacing: 0.5,
                   ),
                   textAlign: TextAlign.center,
@@ -84,7 +85,10 @@ class OnboardingScreen extends StatelessWidget {
                     width: i == ind ? 15 : 10,
                     height: 8,
                     decoration: BoxDecoration(
-                      color: i == ind ? Colors.blue : Colors.grey,
+                      color:
+                          i == ind
+                              ? Theme.of(context).buttonColor
+                              : Colors.grey,
                       borderRadius: BorderRadius.circular(5),
                     ),
                   ),

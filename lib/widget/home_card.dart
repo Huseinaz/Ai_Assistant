@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:flutter/material.dart';
+import 'package:ai_assistant/main.dart';
 import 'package:ai_assistant/helper/global.dart';
 import 'package:ai_assistant/model/home_type.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -43,7 +44,7 @@ class HomeCard extends StatelessWidget {
                       homeType.title,
                       style: TextStyle(
                         fontSize: 18,
-                        color: Colors.black,
+                        color: Theme.of(context).lightTextColor2,
                         fontWeight: FontWeight.w500,
                         letterSpacing: 1,
                       ),
@@ -61,7 +62,7 @@ class HomeCard extends StatelessWidget {
                       homeType.title,
                       style: TextStyle(
                         fontSize: 18,
-                        color: Colors.black,
+                        color: Theme.of(context).lightTextColor2,
                         fontWeight: FontWeight.w500,
                         letterSpacing: 1,
                       ),

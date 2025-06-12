@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ai_assistant/main.dart';
 import 'package:ai_assistant/helper/global.dart';
 import 'package:ai_assistant/model/message.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
@@ -35,7 +36,7 @@ class MessageCard extends StatelessWidget {
                 horizontal: mq.width * 0.03,
               ),
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.black54),
+                border: Border.all(color: Theme.of(context).lightTextColor),
                 borderRadius: BorderRadius.only(
                   topLeft: r,
                   topRight: r,
@@ -73,7 +74,7 @@ class MessageCard extends StatelessWidget {
                 horizontal: mq.width * 0.03,
               ),
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.black54),
+                border: Border.all(color: Theme.of(context).lightTextColor),
                 borderRadius: BorderRadius.only(
                   topLeft: r,
                   topRight: r,

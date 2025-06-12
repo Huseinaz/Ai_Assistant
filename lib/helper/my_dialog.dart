@@ -1,6 +1,6 @@
-import 'package:ai_assistant/widget/custom_loading.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
+import 'package:ai_assistant/widget/custom_loading.dart';
 
 class MyDialog {
   // info

@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
+import 'package:ai_assistant/main.dart';
 import 'package:ai_assistant/helper/global.dart';
 import 'package:ai_assistant/controller/translate_controller.dart';
 
@@ -26,7 +27,7 @@ class _LanguageSheetState extends State<LanguageSheet> {
         top: mq.height * 0.02,
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).scaffoldBackgroundColor,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(15),
           topRight: Radius.circular(15),
@@ -41,7 +42,10 @@ class _LanguageSheetState extends State<LanguageSheet> {
 
             onTapOutside: (e) => FocusScope.of(context).unfocus(),
             decoration: InputDecoration(
-              prefixIcon: Icon(Icons.translate_rounded, color: Colors.blue),
+              prefixIcon: Icon(
+                Icons.translate_rounded,
+                color: Theme.of(context).buttonColor,
+              ),
               hintText: 'Search Language...',
               hintStyle: TextStyle(fontSize: 14),
               border: OutlineInputBorder(
